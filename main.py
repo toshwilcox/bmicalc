@@ -23,12 +23,59 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.properties import ObjectProperty
 from kivymd.uix.chip import MDChip
-
+from kivy.properties import StringProperty, BooleanProperty
 
 class MainScreen(Screen):
-    def metric_to_bmi(self, kg, cm):
-        self.display_bmi  = str(kg / ((cm/100)**2))
-        print(self.display_bmi)
+
+    height_units_1 = StringProperty("ft")
+    height_units_2 = StringProperty("in")
+    height_1_bool = BooleanProperty(False)
+    system = "imperial"
+    weight_units = StringProperty('lbs')
+    display_bmi = StringProperty("")
+
+    def calculate_bmi(self):
+        # do the checks first
+
+        if self.system == "imperial":
+            # we are using the imperial system
+            # so we need ft, in, and lbs
+            ft = self.ids.height_1.text
+            inches = self.ids.height_2.text
+            lbs = self.ids.weight.text
+
+            # need all three
+            if ((len(ft) == 0) | (len(inches) == 0) | (len(lbs) == 0)):
+                print('bad')
+
+            else:
+                # calculate the bmi
+                # convert to floats
+                ft = float(ft)
+                inches = float(inches)
+                lbs = float(lbs)
+                self.display_bmi = self.imperial_to_bmi(ft, inches, lbs)
+
+        else:
+            # its not imperial so its the metric system
+            cm = self.ids.height_2.text
+            kgs = self.ids.weight.text
+
+            if ((len(cm) == 0) | (len(kgs) == 0)):
+                # we are missing some data
+                print('bad')
+            else:
+                # we have everything we need
+                # convert to floats
+                cm = float(cm)
+                kgs = float(kgs)
+                self.display_bmi = self.metric_to_bmi(cm, kgs)
+
+
+
+    def metric_to_bmi(self, cm, kg):
+        return str(kg / ((cm/100)**2))
+        #print(self.ids.height_1.text)
 
     def convert_ft_to_cm(self, ft):
         return ft * 30.48
@@ -42,7 +89,32 @@ class MainScreen(Screen):
     def imperial_to_bmi(self, ft, inch, lbs):
         kg = self.convert_lbs_to_kg(lbs)
         cm = self.convert_ft_to_cm(ft) + self.convert_inch_to_cm(inch)
-        return self.metric_to_bmi(kg, cm)
+        return self.metric_to_bmi(cm, kg)
+
+    def imperial_button(self):
+        self.height_1_bool = False
+        self.height_units_1 = "ft"
+        self.height_units_2 = "in"
+        self.system = "imperial"
+        self.weight_units = "lbs"
+
+        #clean any value in the cm section
+        self.ids.height_1.text = ""
+        self.ids.height_2.text = ""
+        self.ids.weight.text = ""
+
+    def metric_button(self):
+        self.height_1_bool = True
+        self.height_units_1 = ""
+        self.height_units_2 = "cm"
+        self.system = "metric"
+        self.weight_units = "kgs"
+
+        #clean any value in the ft section
+        self.ids.height_1.text = ""
+        self.ids.height_2.text = ""
+        self.ids.weight.text = ""
+
 
 class WindowManager(ScreenManager):
     pass
