@@ -64,6 +64,7 @@ WindowManager:
                 #on_text: print('test')
                 #on_focus: print('focused')
                 on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+                multiline: False
 
             MDLabel:
                 text: root.height_units_1
