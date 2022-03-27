@@ -24,6 +24,7 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.properties import ObjectProperty
 from kivymd.uix.chip import MDChip
 from kivy.properties import StringProperty, BooleanProperty
+from kivy.uix.vkeyboard import VKeyboard
 
 class MainScreen(Screen):
 
@@ -114,6 +115,26 @@ class MainScreen(Screen):
         self.ids.height_1.text = ""
         self.ids.height_2.text = ""
         self.ids.weight.text = ""
+
+class NumericInput(MDTextField):
+    max_characters = NumericProperty(3)
+
+    def __init__(self, **kwargs):
+        super().__init__(input_filter=self.char_limit, **kwargs)
+
+    def on_focus(self, instance_text_field, focus_value: bool):
+        # on focus request a numeric keyboard
+        if focus_value:
+            num_kb = Window.request_keyboard(self.close_key, self)
+            if num_kb.widget:
+                num_kb.widget.layout = 'numeric.json'
+
+    def close_key(self):
+        pass
+
+    def char_limit(self, substring, from_undo):
+        if len(self.text) < self.max_characters:
+            return substring
 
 
 
