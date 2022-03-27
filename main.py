@@ -140,6 +140,15 @@ class NumericInput(MDTextField):
             return substring
 
 
+class CustomTextField(MDTextField):
+    def __init__(self, *args, **kwargs):
+        self.input_type = "number"
+        self.input_type = "tel"
+        self.input_filter = 'float'
+        self.multiline = False
+        super().__init__(**kwargs)
+
+
 
 class WindowManager(ScreenManager):
     pass
