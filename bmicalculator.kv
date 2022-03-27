@@ -3,6 +3,8 @@ WindowManager:
 
 
 #BMICalculator:
+
+
 <MainScreen>
 
     BoxLayout:
@@ -54,7 +56,7 @@ WindowManager:
             MDLabel:
                 text: "Height"
 
-            NumericInput:
+            TextInput:
                 #max_text_length: 4
                 input_filter: "float"
                 input_type: "number"
@@ -66,7 +68,7 @@ WindowManager:
                 #on_focus: print('focused')
                 on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
                 multiline: False
-                #on_focus: self.setup_keyboard()
+                #on_focus: root.text_focused()
 
 
 

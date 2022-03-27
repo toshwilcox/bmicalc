@@ -1,7 +1,7 @@
 from kivy.config import Config
 Config.set('graphics', 'width', 360 )
 Config.set('graphics', 'height', 600)
-Config.set("kivy", "keyboard_mode", 'dock')
+#Config.set("kivy", "keyboard_mode", 'dock')
 
 from kivy.app import App
 from kivy.uix.relativelayout import RelativeLayout
@@ -119,6 +119,7 @@ class MainScreen(Screen):
         self.ids.height_1.text = ""
         self.ids.height_2.text = ""
         self.ids.weight.text = ""
+        
 
 class NumericInput(MDTextField):
     max_characters = NumericProperty(3)
