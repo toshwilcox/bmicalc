@@ -30,16 +30,6 @@ from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.vkeyboard import VKeyboard
 
 
-class Calc(TextInput):
-    def _keyboard_close(self):
-        pass
-    def setup_keyboard(self):
-        kb = Window.request_keyboard(self._keyboard_close, self)
-        print(kb.widget)
-        if kb.widget:
-            kb.widget.layout = 'numeric.json'
-
-
 class MainScreen(Screen):
 
     height_units_1 = StringProperty("ft")
