@@ -1,6 +1,7 @@
 from kivy.config import Config
 Config.set('graphics', 'width', 360 )
 Config.set('graphics', 'height', 600)
+Config.set("kivy", "keyboard_mode", 'dock')
 
 from kivy.app import App
 from kivy.uix.relativelayout import RelativeLayout
@@ -10,6 +11,8 @@ from kivy.properties import NumericProperty, StringProperty
 import math
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
+from kivy.uix.textinput import TextInput
+
 
 from kivymd.app import MDApp
 from kivymd.uix.label import MDLabel, MDIcon
@@ -25,6 +28,17 @@ from kivy.properties import ObjectProperty
 from kivymd.uix.chip import MDChip
 from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.vkeyboard import VKeyboard
+
+
+class Calc(TextInput):
+    def _keyboard_close(self):
+        pass
+    def setup_keyboard(self):
+        kb = Window.request_keyboard(self._keyboard_close, self)
+        print(kb.widget)
+        if kb.widget:
+            kb.widget.layout = 'numeric.json'
+
 
 class MainScreen(Screen):
 

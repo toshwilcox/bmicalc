@@ -54,7 +54,7 @@ WindowManager:
             MDLabel:
                 text: "Height"
 
-            CustomTextField:
+            Calc:
                 #max_text_length: 4
                 input_filter: "int"
                 input_type: "number"
@@ -66,7 +66,7 @@ WindowManager:
                 #on_focus: print('focused')
                 on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
                 multiline: False
-                #on_focus: root.set_layout(keyboard_anchor, self)
+                on_focus: self.setup_keyboard()
 
 
 
