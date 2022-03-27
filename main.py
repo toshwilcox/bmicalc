@@ -125,8 +125,11 @@ class NumericInput(MDTextField):
     def on_focus(self, instance_text_field, focus_value: bool):
         # on focus request a numeric keyboard
         if focus_value:
+            print(self.close_key)
             num_kb = Window.request_keyboard(self.close_key, self)
+            print(num_kb.widget)
             if num_kb.widget:
+                print('yes')
                 num_kb.widget.layout = 'numeric.json'
 
     def close_key(self):
