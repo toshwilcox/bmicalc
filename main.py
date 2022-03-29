@@ -28,6 +28,7 @@ from kivy.properties import ObjectProperty
 from kivymd.uix.chip import MDChip
 from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.vkeyboard import VKeyboard
+from kivy.utils import platform
 
 
 class MainScreen(Screen):
@@ -109,6 +110,7 @@ class MainScreen(Screen):
         self.ids.weight.text = ""
 
     def metric_button(self):
+        print('poop')
         self.height_1_bool = True
         self.height_units_1 = ""
         self.height_units_2 = "cm"
@@ -160,31 +162,20 @@ class WindowManager(ScreenManager):
 
 class BMICalculator(MDApp):
 
-    display_bmi = ""
-
-    def __init__(self, **kwargs):
-        super(BMICalculator, self).__init__(**kwargs)
-        #place the red dot 10 meters out from the middle of the field
-
-    def test(self):
-        print('test')
-
-    def metric_to_bmi(self, kg, cm):
-        self.display_bmi  = str(kg / (cm**2))
-
-    def convert_ft_to_cm(self, ft):
-        return ft * 30.48
-
-    def convert_inch_to_cm(self, inch):
-        return inch * 2.54
-
-    def convert_lbs_to_kg(self, lbs):
-        return lbs / 2.205
-
-    def imperial_to_bmi(self, ft, inch, lbs):
-        kg = self.convert_lbs_to_kg(lbs)
-        cm = self.convert_ft_to_cm(ft) + self.convert_inch_to_cm(inch)
-        return self.metric_to_bmi(kg, cm)
+    def build(self):
+        pass
+    
+    def on_start(self):
+        print('start')
+        if platform == 'ios':
+            from pyobjus import autoclass
+            self.banner_ad = autoclass('adSwitch').alloc().init()
+            
+    def show_banner(self):
+        self.banner_ad.show_ads()
+        
+    def hide_banner(self):
+        self.banner_ad.hide_ads()
 
 
 
