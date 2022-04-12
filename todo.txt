@@ -1,0 +1,1 @@
+fix the pointer button to slide at different speeds 
