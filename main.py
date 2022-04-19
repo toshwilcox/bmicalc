@@ -528,7 +528,7 @@ class WindowManager(ScreenManager):
 class BMICalculator(MDApp):
 
     def build(self):
-        self.ads = KivMob(TestIds.APP)
+        self.ads = KivMob(TestIds.APP) #put your ad id here
         self.ads.new_banner(TestIds.BANNER, top_pos=False)
         self.ads.request_banner()
         self.ads.show_banner()
